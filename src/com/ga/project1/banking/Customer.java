@@ -6,13 +6,12 @@ public class Customer {
     private String username;
     private String passwordHash;
     private String salt;
-    private int balance;
     private String role;
 
     //new customers
-    public Customer(int balance, String salt, String password, String username, int customerID, String name, String role
-    ) {
-        this.balance = balance;
+    public Customer(String password, String username,
+                    int customerID, String name, String role) {
+
         this.salt = PasswordUtil.generateSalt();
         this.passwordHash = PasswordUtil.hashPassword(password, this.salt);
         this.username = username;
@@ -20,24 +19,23 @@ public class Customer {
         this.name = name;
         this.role = role;
     }
+//    public Customer( String salt, String password, String username, int customerID, String name, String role) {
+//        this.salt = PasswordUtil.generateSalt();
+//        this.passwordHash = PasswordUtil.hashPassword(password, this.salt);
+//        this.username = username;
+//        this.customerID = customerID;
+//        this.name = name;
+//        this.role = role;
+//    }
 
     //existing customers
-    public Customer(int customerID, String name, String username, String passwordHash, String salt, int balance, String role) {
+    public Customer(String salt, int customerID, String name, String username, String passwordHash, String role) {
+        this.salt = salt;
         this.customerID = customerID;
         this.name = name;
         this.username = username;
         this.passwordHash = passwordHash;
-        this.salt = salt;
-        this.balance = balance;
         this.role = role;
-    }
-
-    public int getBalance() {
-        return balance;
-    }
-
-    public void setBalance(int balance) {
-        this.balance = balance;
     }
 
     public String getPasswordHash() {
