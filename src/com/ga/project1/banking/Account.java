@@ -3,10 +3,9 @@ package com.ga.project1.banking;
 public class Account {
     private String accountNumber;
     private String accountType;
-    private int balance;
+    private double balance;
     private int customerID;
-
-    public Account(int customerID, int balance, String accountType, String accountNumber) {
+    public Account( int customerID, double balance, String accountType, String accountNumber) {
         this.customerID = customerID;
         this.balance = balance;
         this.accountType = accountType;
@@ -29,11 +28,11 @@ public class Account {
         this.accountType = accountType;
     }
 
-    public int getBalance() {
+    public double getBalance() {
         return balance;
     }
 
-    public void setBalance(int balance) {
+    public void setBalance(double balance) {
         this.balance = balance;
     }
 

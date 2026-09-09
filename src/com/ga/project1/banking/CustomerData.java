@@ -26,19 +26,6 @@ public class CustomerData {
         }
     }
 
-//    public void saveCustomer(Customer customer){
-//        try(FileWriter writer = new FileWriter(FILE_NAME, true)){
-//            writer.write(customer.getCustomerID() + "," + customer.getName() + "," + customer.getUsername() + "," +
-//                            customer.getPasswordHash() + ","  + "," +
-//                            customer.getRole() + System.lineSeparator()
-//            );
-//
-//        } catch (IOException e) {
-//            System.out.println("Error saving customer.");
-//            throw new RuntimeException(e);
-//        }
-//    }
-
     //find customer by username
     public Customer findUserByUsername(String username) {
 
@@ -74,25 +61,7 @@ public class CustomerData {
 
         return null;
     }
-//    public Customer findUserByUsername(String username){
-//        try(BufferedReader reader = new BufferedReader(new FileReader(FILE_NAME))){
-//            String line;
-//            while((line = reader.readLine())!=null){
-//                String[] data = line.split(",");
-//
-//                if(data.length == 6 && data[2].equals(username)){
-//                    return new Customer(
-//                            data[0], data[1], data[2], Integer.parseInt(data[3]), data[5], data[6]);
-//                }
-//            }
-//        } catch (FileNotFoundException e) {
-//            throw new RuntimeException(e);
-//        } catch (IOException e) {
-//            System.out.println("Error reading customer file.");
-//            throw new RuntimeException(e);
-//        }
-//        return null;
-//    }
+
     // Generate the next customer ID
     public int getNextCustomerID() {
         int highestID = 0;

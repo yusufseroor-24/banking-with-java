@@ -65,7 +65,7 @@ public class AccountData {
                     if (storedCustomerID == customerID &&
                             data[2].equalsIgnoreCase(accountType)) {
 
-                        return new Account(Integer.parseInt(data[1]), Integer.parseInt(data[3]), data[2], data[0]);
+                        return new Account(Integer.parseInt(data[1]), Double.parseDouble(data[3]), data[2], data[0]);
                     }
                 }
             }
@@ -81,7 +81,6 @@ public class AccountData {
 
     //Update an account's balance
     public void updateAccount(Account updatedAccount) {
-
         File inputFile = new File(FILE_NAME);
         File tempFile = new File("account_temp.txt");
 

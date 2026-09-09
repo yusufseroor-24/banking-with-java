@@ -19,14 +19,6 @@ public class Customer {
         this.name = name;
         this.role = role;
     }
-//    public Customer( String salt, String password, String username, int customerID, String name, String role) {
-//        this.salt = PasswordUtil.generateSalt();
-//        this.passwordHash = PasswordUtil.hashPassword(password, this.salt);
-//        this.username = username;
-//        this.customerID = customerID;
-//        this.name = name;
-//        this.role = role;
-//    }
 
     //existing customers
     public Customer(String salt, int customerID, String name, String username, String passwordHash, String role) {
