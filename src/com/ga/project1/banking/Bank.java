@@ -2,6 +2,8 @@ package com.ga.project1.banking;
 
 import java.util.Scanner;
 
+import static com.ga.project1.banking.Transactions.*;
+
 public class Bank {
     public static boolean loggedIn = false;
     private static String accountType;
@@ -102,30 +104,30 @@ public class Bank {
             switch (userChoice) {
                 case 1:
                     accountType = "checking";
+                    Account selectedAccount = accountData.findCustomerAccount(customer.getCustomerID(), accountType);
+                    customerMenu(selectedAccount, accountData);
                     break;
                 case 2:
-                    accountType = "Saving";
+                    accountType = "saving";
+                    Account selectedAccountSaving = accountData.findCustomerAccount(customer.getCustomerID(), accountType);
+                    customerMenu(selectedAccountSaving, accountData);
                     break;
                 case 3:
                     customerMenuRunning = false;
                     loggedIn = false;
                     System.out.println("You have logged out");
             }
-            Account selectedAccount = accountData.findCustomerAccount(customer.getCustomerID(), accountType);
-            if (selectedAccount == null) {
-                System.out.println("Account has not been found.");
-            }
         }
     }
 
-        public static void customerMenu(Account selectedAccount){
+        public static void customerMenu(Account selectedAccount, AccountData accountData){
             boolean running = true;
 
             while(running && loggedIn){
-            System.out.println("\n====== " + selectedAccount.getAccountType() + " Account ======");
+            System.out.println("\n====== " + selectedAccount.getAccountType() + " account ======");
             System.out.println("\n====== " + selectedAccount.getAccountNumber() + " ======");
             System.out.println("\n====== " + selectedAccount.getBalance() + " BD ======");
-            System.out.println("\nSelect the service required:");
+            System.out.println("\nSelect the service needed:");
             System.out.println("1. Withdraw Money");
             System.out.println("2. Deposit Money");
             System.out.println("3. Transfer Money");
@@ -136,24 +138,24 @@ public class Bank {
             switch (answer) {
                 case 1:
                     System.out.println("How much would you like to withdraw?");
-                    int withrdawAmount = scanner.nextInt();
-                    System.out.println("You selected to withdraw: " + withrdawAmount);
+                    double withrdawAmount = scanner.nextDouble();
+                    withdrawMoney(selectedAccount, withrdawAmount, accountData);
                     break;
                 case 2:
                     System.out.println("How much would you like to deposit?");
-                    int depositAmount = scanner.nextInt();
-                    System.out.println("You selected to deposit: " + depositAmount);
+                    double depositAmount = scanner.nextDouble();
+                    depositMoney(selectedAccount, depositAmount, accountData);
                     break;
                 case 3:
                     System.out.println("How much would you like to transfer money?");
-                    int transferMoney = scanner.nextInt();
-                    ;
+                    double transferAmount = scanner.nextDouble();
                     scanner.nextLine();
                     System.out.println("To which account would you like the money to be transferred to?");
-                    String transferredAccount = scanner.nextLine();
+                    String toAccountNumber = scanner.nextLine();
+                    transferMoney(selectedAccount, toAccountNumber, transferAmount, accountData);
                     break;
                 case 4:
-                    System.out.println("Your balance is: " + selectedAccount.getBalance());
+                    System.out.println("Your balance is: " + selectedAccount.getBalance() + "BD");
                     break;
                 case 5:
                     loggedIn = false;
