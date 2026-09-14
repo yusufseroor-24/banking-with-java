@@ -1,6 +1,5 @@
-601725023408,1,saving,0
-230317876768,1,saving,0
-181490816984,1,checking,20.0
-700585114689,1,saving,10.0
-935957362827,1,checking,0
-270770759926,1,saving,0
+Account number, Customer ID, Account Type, Balance, isActive, OverdraftCount, Card Type, WithrdawnToday, TransferredToday, TransferredOwnToday, DepositedToday,
+LastResetDate, Status
+
+809583009617,1001,checking,20.0,true,0,STANDARD_MASTERCARD,0.0,0.0,0.0,20.0,2026-09-14,APPROVED
+284720964005,1001,saving,0.0,true,0,STANDARD_MASTERCARD,0.0,0.0,0.0,0.0,2026-09-13,PENDING

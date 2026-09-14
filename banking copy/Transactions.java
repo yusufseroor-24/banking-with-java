@@ -136,11 +136,8 @@ public class Transactions {
             writer.write(
                     date + "," +
                     account.getAccountNumber()  + "," +
-                    type + "," +
-                    amount + "," +
-                    account.getBalance() + "," +
-                    account.getCardType() + "," +
-                    account.getAccountType() +
+                    type + "," + amount + "," +
+                    account.getBalance() + "," + account.getCardType() +
                     System.lineSeparator()
                     );
         } catch (IOException e) {
@@ -158,10 +155,10 @@ public class Transactions {
 
             while ((line = reader.readLine()) != null) {
                 String[] data = line.split(",");
-                if (data.length == 7) {
+                if (data.length == 6) {
                     exist = true;
-                    System.out.printf("Date: %s | Account: %s | Type: %-20s | Amount: %s | Balance After: %s | Card: %s (%s)%n",
-                            data[0], data[1], data[2], data[3], data[4], data[5], data[6]);
+                    System.out.printf("Date: %s | Account: %s | Type: %-20s | Amount: %s | Balance After: %s%n | Card: %s%n",
+                            data[0], data[1], data[2], data[3], data[4], data[5]);
                 }
             }
             if (!exist) {
@@ -192,7 +189,7 @@ public class Transactions {
         return transactions.stream()
                 .filter(line -> {
                     String[] data = line.split(",");
-                    if (data.length != 7) {
+                    if (data.length != 6) {
                         return false;
                     }
                     try {
@@ -213,14 +210,13 @@ public class Transactions {
         for (String line : transactions) {
             String[] data = line.split(",");
             System.out.printf(
-                    "Date: %s | Account: %s | Type: %-20s | Amount: %s | Balance After: %s | Card: %s (%s)%n",
+                    "Date: %s | Account: %s | Type: %-20s | Amount: %s | Balance After: %s | Card: %s%n",
                     data[0],
                     data[1],
                     data[2],
                     data[3],
                     data[4],
-                    data[5],
-                    data[6]
+                    data[5]
             );
         }
     }
