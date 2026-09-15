@@ -1,13 +1,16 @@
 Technologies used
+- 
 - IntelliJ IDEA
 - GitHub
 - Trello
 - Draw.io
 
 Link to Trello
+- 
 https://trello.com/invite/b/6a9fa95888daf33b318caa49/ATTI54f8c482afef030c9c56fd22cd4a40151119BBE3/ga-bankingwithjavaproject
 
 Link to Additional Resources
+- 
 - https://stackoverflow.com/questions/2860943/how-can-i-hash-a-password-in-java
 - https://medium.com/@YodgorbekKomilo/understanding-hashing-in-java-a-guide-with-examples-e8c9e86a9371
 - https://www.xe.com/currencyconverter/
@@ -20,8 +23,13 @@ The project was built incrementally, feature by feature. It started with core pr
 Each feature was added and tested manually against the console, a Unit Testing was then created for some of the Account.java methods to test their use.
 
 Unresolved Issues / Future Improvements
+- 
 - Multiple Master Cards: customers are allowed to upgrade their card but never downgrade. In addition, customers can only upgrade their card but not have multiple (or a maximum of 3). As a future improvement, a logic that would enhance master card management would be integrated. 
 - Banker Approval: the banker is only allowed to approve a customer, but never rejects with a reason. As a future improvement, a banker reject logic can be integrated.
 - Notifications: the banker approves the customer account, but the customer is never notified unless logged in to attempt a transaction. As a future improvement, a notification logic system can be integrated to notify customers of needed alerts and notifications.
 
 Favorite Function
+- 
+
+ERD
+- 
