@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.stream.Collectors;
+import static com.ga.project1.banking.Bank.scanner;
 
 public class Transactions {
     private static final DateTimeFormatter DATE_FORMAT = DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss");
@@ -28,6 +29,7 @@ public class Transactions {
         if(account.getWithdrawnToday() + withdrawAmount > account.getCardType().getWithdrawLimit()){
             System.out.println("Error: this exceeds your " + account.getCardType() + " daily withdrawal limit of $" + account.getCardType().getWithdrawLimit()
             + "(already withdrawn today: $" + account.getWithdrawnToday() + ")");
+            return;
         }
         if (currentBalance <= 0 && withdrawAmount > 100) {
             System.out.println("Your account is overdrawn. You cannot withdraw more than $100 until your balance is resolved.");
@@ -66,13 +68,18 @@ public class Transactions {
         }
 
         double limit = isOwnAccount ? account.getCardType().getDepositLimitOwn() : account.getCardType().getDepositLimit();
+        double usedToday = isOwnAccount ? account.getDepositedOwnToday() : account.getDepositedToday();
 
-        if(account.getDepositedToday() + depositAmount > limit){
-            System.out.println("Error: this exceeds your " + account.getCardType() + " daily deposit limit of $" + limit + " (already deposited today: $" + account.getDepositedToday() + ")");
+        if( usedToday + depositAmount > limit){
+            System.out.println("Error: this exceeds your " + account.getCardType() + " daily deposit limit of $" + limit + " (already deposited today: $" + usedToday + ")");
             return;
         }
-            account.setBalance(account.getBalance() + depositAmount);
-            account.setDepositedToday(account.getDepositedToday() + depositAmount);
+        account.setBalance(account.getBalance() + depositAmount);
+            if (isOwnAccount) {
+                account.setDepositedOwnToday(account.getDepositedOwnToday() + depositAmount);
+            } else {
+                account.setDepositedToday(account.getDepositedToday() + depositAmount);
+            }
             accountData.updateAccount(account);
             if (!account.isActive() && account.getBalance() >= 0) {
                 account.setActive(true);
@@ -86,15 +93,14 @@ public class Transactions {
     public static void transferMoney(Account fromAccount, String toAccountNumber, double amount, AccountData accountData, Customer customer){
         fromAccount.resetDailyLimitNewDay();
         Account toAccount = accountData.findByAccountNumber(toAccountNumber);
-        if (!toAccount.getStatus().equals("APPROVED")) {
-            System.out.println("The destination account is still pending approval and cannot receive transfers.");
-            return;
-        }
         if (toAccount == null) {
             System.out.println("Destination account not found.");
             return;
         }
-
+        if (!toAccount.getStatus().equals("APPROVED")) {
+            System.out.println("The destination account is still pending approval and cannot receive transfers.");
+            return;
+        }
         if (amount <= 0 || fromAccount.getBalance() < amount) {
             System.out.println("Error: invalid transfer amount or insufficient funds.");
             return;
@@ -280,6 +286,37 @@ public class Transactions {
         List<String> filteredTransactions = filterTransactions(transactions, start, end);
         System.out.println("\n====== " + day + " Transactions ======");
         displayTransactions(filteredTransactions);
+    }
+
+    public static void currencyConversion(int conversionUserChoice){
+        final double USDollarToBD = 0.376;
+        final double BritishPoundToBD = 0.507;
+        final double EuroToBD = 0.434;
+        final double SaudiRiyalToBD = 0.100;
+
+        System.out.println("Provide the amount for conversion.");
+        double conversionAmount = scanner.nextDouble();
+
+        switch(conversionUserChoice){
+            case 1:
+                double conversionDollar = conversionAmount * USDollarToBD;
+                System.out.println(conversionAmount + " is $" + conversionDollar + " in US Dollars");
+                break;
+            case 2:
+                double conversionPound = conversionAmount * BritishPoundToBD;
+                System.out.println(conversionAmount + " is £" + conversionPound + " in British Pounds");
+                break;
+            case 3:
+                double conversionEuro = conversionAmount * EuroToBD;
+                System.out.println(conversionAmount + " is €" + conversionEuro + " in Euro");
+                break;
+            case 4:
+                double conversionRiyal = conversionAmount * SaudiRiyalToBD;
+                System.out.println(conversionAmount + " is SAR" + conversionRiyal + " in Saudi Riyals");
+                break;
+            default:
+                System.out.println("Unavailable Currency Option. The provided menu contains the available currency conversions only");
+        }
     }
 
 }

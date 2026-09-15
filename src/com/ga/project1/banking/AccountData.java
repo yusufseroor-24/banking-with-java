@@ -26,6 +26,7 @@ public class AccountData {
                             account.getTransferredToday() + "," +
                             account.getTransferredOwnToday() + "," +
                             account.getDepositedToday() + "," +
+                            account.getDepositedOwnToday() + "," +
                             account.getLastResetDate() + "," +
                             account.getStatus() +
                             System.lineSeparator()
@@ -42,7 +43,7 @@ public class AccountData {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] data = line.split(",");
-                if (data.length == 13 && data[0].equals(accountNumber)) {
+                if (data.length == 14 && data[0].equals(accountNumber)) {
                     return buildAccount(data);
                 }
             }
@@ -61,7 +62,7 @@ public class AccountData {
             while ((line = reader.readLine()) != null) {
                 String[] data = line.split(",");
 
-                if (data.length == 13) {
+                if (data.length == 14) {
                     int storedCustomerID = Integer.parseInt(data[1]);
                     if (storedCustomerID == customerID &&
                             data[2].equalsIgnoreCase(accountType)) {
@@ -91,8 +92,9 @@ public class AccountData {
                 Double.parseDouble(data[8]),      //transferredToday
                 Double.parseDouble(data[9]),      //transferredOwnToday
                 Double.parseDouble(data[10]),     //depositedToday
-                LocalDate.parse(data[11]),        //lastResetDate
-                data[12]                          //status
+                Double.parseDouble(data[11]),     //depositedOwnToday
+                LocalDate.parse(data[12]),        //lastResetDate
+                data[13]                          //status
         );
     }
 
@@ -108,7 +110,7 @@ public class AccountData {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] data = line.split(",");
-                if (data.length == 13 && data[0].equals(updatedAccount.getAccountNumber())) {
+                if (data.length == 14 && data[0].equals(updatedAccount.getAccountNumber())) {
                     writer.write(
                             updatedAccount.getAccountNumber() + "," +
                                     updatedAccount.getCustomerID() + "," +
@@ -121,6 +123,7 @@ public class AccountData {
                                     updatedAccount.getTransferredToday() + "," +
                                     updatedAccount.getTransferredOwnToday() + "," +
                                     updatedAccount.getDepositedToday() + "," +
+                                    updatedAccount.getDepositedOwnToday() + "," +
                                     updatedAccount.getLastResetDate() + "," +
                                     updatedAccount.getStatus() +
                                     System.lineSeparator()
@@ -152,7 +155,7 @@ public class AccountData {
         try (Stream<String> lines = Files.lines(Path.of(FILE_NAME))) {
             return lines
                     .map(line -> line.split(","))
-                    .filter(data -> data.length == 13 && data[12].equals("PENDING"))
+                    .filter(data -> data.length == 14 && data[13].equals("PENDING"))
                     .map(this::buildAccount)
                     .collect(Collectors.toList());
         } catch (IOException e) {

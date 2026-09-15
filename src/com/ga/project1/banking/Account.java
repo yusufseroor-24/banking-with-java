@@ -17,6 +17,7 @@ public class Account {
     private double transferredToday;
     private double transferredOwnToday;
     private double depositedToday;
+    private double depositedOwnToday;
     private LocalDate lastResetDate;
 
     private String status;
@@ -24,13 +25,13 @@ public class Account {
 
     public Account( int customerID, double balance, String accountType, String accountNumber, boolean isActive, int overDraftCount, CardType cardType) {
         this(customerID, balance, accountType, accountNumber, isActive, overDraftCount, cardType,
-                0, 0, 0, 0, LocalDate.now(), "PENDING");
+                0, 0, 0, 0, 0, LocalDate.now(), "PENDING");
     }
 
     public Account(int customerID, double balance, String accountType, String accountNumber,
                    boolean isActive, int overDraftCount, CardType cardType,
                    double withdrawnToday, double transferredToday, double transferredOwnToday,
-                   double depositedToday, LocalDate lastResetDate, String status) {
+                   double depositedToday, double depositedOwnToday, LocalDate lastResetDate, String status) {
         this.customerID = customerID;
         this.balance = balance;
         this.accountType = accountType;
@@ -148,6 +149,14 @@ public class Account {
 
     public void setStatus(String status) {
         this.status = status;
+    }
+
+    public double getDepositedOwnToday() {
+        return depositedOwnToday;
+    }
+
+    public void setDepositedOwnToday(double depositedOwnToday) {
+        this.depositedOwnToday = depositedOwnToday;
     }
 
     public static void upgradeCard(Account account, String upgradeChoice){

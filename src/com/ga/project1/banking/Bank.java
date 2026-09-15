@@ -108,7 +108,8 @@ public class Bank {
             System.out.println("1. Checking Account");
             System.out.println("2. Saving Account");
             System.out.println("3. Transaction History");
-            System.out.println("4. Logout");
+            System.out.println("4. Currency Conversions");
+            System.out.println("5. Logout");
 
             int userChoice = scanner.nextInt();
             switch (userChoice) {
@@ -142,6 +143,15 @@ public class Bank {
                     customerTransactionHistory(customer);
                     break;
                 case 4:
+                    System.out.println("Choose the currency to convert to Bahraini Dinar (BD)");
+                    System.out.println("1. US Dollar ($)");
+                    System.out.println("2. British Pound (£)");
+                    System.out.println("3. Euro (€)");
+                    System.out.println("4. Saudi Riyal (SAR)");
+                    int conversionUserChoice = scanner.nextInt();
+                    currencyConversion(conversionUserChoice);
+                    break;
+                case 5:
                     customerMenuRunning = false;
                     loggedIn = false;
                     System.out.println("You have logged out");
