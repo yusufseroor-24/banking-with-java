@@ -33,3 +33,4 @@ Favorite Function
 
 ERD
 - 
+<img width="932" height="912" alt="GA_Bank_Project drawio" src="https://github.com/user-attachments/assets/90e25992-4cff-43a6-969b-731f4951fba3" />
