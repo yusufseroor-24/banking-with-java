@@ -11,10 +11,6 @@ public class Bank {
     public static boolean loggedIn = false;
     private static String accountType;
 
-    public static void main(String[] args) {
-        menu1();
-    }
-
     static Scanner scanner = new Scanner(System.in);
 
     public static void menu1() {

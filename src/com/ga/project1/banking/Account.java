@@ -1,8 +1,6 @@
 package com.ga.project1.banking;
 
-import java.util.Scanner;
 import java.time.LocalDate;
-import static com.ga.project1.banking.Bank.scanner;
 
 public class Account {
     private String accountNumber;
@@ -22,12 +20,13 @@ public class Account {
 
     private String status;
 
-
+    //new accounts
     public Account( int customerID, double balance, String accountType, String accountNumber, boolean isActive, int overDraftCount, CardType cardType) {
         this(customerID, balance, accountType, accountNumber, isActive, overDraftCount, cardType,
                 0, 0, 0, 0, 0, LocalDate.now(), "PENDING");
     }
 
+    //loading from file
     public Account(int customerID, double balance, String accountType, String accountNumber,
                    boolean isActive, int overDraftCount, CardType cardType,
                    double withdrawnToday, double transferredToday, double transferredOwnToday,
@@ -43,6 +42,7 @@ public class Account {
         this.transferredToday = transferredToday;
         this.transferredOwnToday = transferredOwnToday;
         this.depositedToday = depositedToday;
+        this.depositedOwnToday = depositedOwnToday;
         this.lastResetDate = lastResetDate;
         this.status = status;
     }
@@ -179,6 +179,7 @@ public class Account {
             transferredToday = 0;
             transferredOwnToday = 0;
             depositedToday = 0;
+            depositedOwnToday = 0;
             lastResetDate = today;
         }
     }

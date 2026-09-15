@@ -21,8 +21,7 @@ public class PasswordUtil {
 
     public static String hashPassword(String password, String salt) {
         try {
-            byte[] saltBytes =
-                    Base64.getDecoder().decode(salt);
+            byte[] saltBytes = Base64.getDecoder().decode(salt);
             PBEKeySpec spec = new PBEKeySpec(
                     password.toCharArray(),
                     saltBytes,

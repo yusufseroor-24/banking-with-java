@@ -4,7 +4,6 @@ import java.time.temporal.ChronoUnit;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Scanner;
-import static com.ga.project1.banking.Bank.menu2;
 
 public class Login {
     private CustomerData customerData;
@@ -15,9 +14,7 @@ public class Login {
     private static final Map<String, Integer> failedAttempts = new HashMap<>();
     private static final Map<String, LocalDateTime> lockedUntil = new HashMap<>();
 
-    public Login(CustomerData customerData) {
-        this.customerData = customerData;
-    }
+    public Login(CustomerData customerData) {this.customerData = customerData;}
 
     public Customer login(){
         Scanner scanner = new Scanner(System.in);

@@ -1,8 +1,6 @@
 package com.ga.project1.banking;
 
 import java.io.*;
-import java.util.ArrayList;
-import java.util.List;
 
 public class CustomerData {
     private static final String FILE_NAME = "customer.txt";
@@ -26,8 +24,7 @@ public class CustomerData {
 
     //find customer by username
     public Customer findUserByUsername(String username) {
-        try (BufferedReader reader =
-                     new BufferedReader(new FileReader(FILE_NAME))) {
+        try (BufferedReader reader = new BufferedReader(new FileReader(FILE_NAME))) {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] data = line.split(",");

@@ -80,12 +80,12 @@ public class Transactions {
             } else {
                 account.setDepositedToday(account.getDepositedToday() + depositAmount);
             }
-            accountData.updateAccount(account);
             if (!account.isActive() && account.getBalance() >= 0) {
                 account.setActive(true);
                 account.setOverDraftCount(0);
                 System.out.println("Your balance has been resolved. Your account has been reactivated.");
             }
+            accountData.updateAccount(account);
             TransactionDataLog(customer, account, isOwnAccount ? "Deposit" : "Deposit (to " + account.getAccountNumber() + ")", depositAmount);
             System.out.println(depositAmount + "BD has been deposited. Your current balance is: " + account.getBalance());
     }
@@ -93,6 +93,10 @@ public class Transactions {
     public static void transferMoney(Account fromAccount, String toAccountNumber, double amount, AccountData accountData, Customer customer){
         fromAccount.resetDailyLimitNewDay();
         Account toAccount = accountData.findByAccountNumber(toAccountNumber);
+        if (!fromAccount.isActive()) {
+            System.out.println("This account is deactivated due to repeated overdrafts and cannot make transfers.");
+            return;
+        }
         if (toAccount == null) {
             System.out.println("Destination account not found.");
             return;
@@ -183,8 +187,7 @@ public class Transactions {
     public static List<String> getTransactions(Customer customer) {
         String transactionFileName = "Customer-" + customer.getUsername() + "-" + customer.getCustomerID() + ".txt";
         try (BufferedReader reader = new BufferedReader(new FileReader(transactionFileName))) {
-            return reader.lines()
-                    .collect(Collectors.toList());
+            return reader.lines().collect(Collectors.toList());
         } catch (FileNotFoundException e) {
             System.out.println("No transaction history found yet.");
         } catch (IOException e) {
@@ -196,8 +199,7 @@ public class Transactions {
 
     public static List<String> filterTransactions(List<String> transactions, LocalDateTime start, LocalDateTime end) {
         return transactions.stream()
-                .filter(line -> {
-                    String[] data = line.split(",");
+                .filter(line -> {String[] data = line.split(",");
                     if (data.length != 7) {
                         return false;
                     }

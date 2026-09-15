@@ -61,12 +61,9 @@ public class AccountData {
             String line;
             while ((line = reader.readLine()) != null) {
                 String[] data = line.split(",");
-
                 if (data.length == 14) {
                     int storedCustomerID = Integer.parseInt(data[1]);
-                    if (storedCustomerID == customerID &&
-                            data[2].equalsIgnoreCase(accountType)) {
-
+                    if (storedCustomerID == customerID && data[2].equalsIgnoreCase(accountType)) {
                         return buildAccount(data);
                     }
                 }
@@ -162,6 +159,4 @@ public class AccountData {
             return new ArrayList<>();
         }
     }
-
-
 }
